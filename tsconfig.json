@@ -26,7 +26,13 @@
     "strictFunctionTypes": false,
     "pretty": true,
     "removeComments": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "typeRoots": ["./node_modules/@types"],
+    "types": [
+      "node",
+      "express"
+    ]
   },
   "include": ["app/**/*", "internals/templates/**/*"],
   "exclude": ["node_modules"]

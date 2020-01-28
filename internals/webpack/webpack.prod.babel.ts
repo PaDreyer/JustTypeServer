@@ -1,19 +1,22 @@
 // Important modules this config uses
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WebpackPwaManifest = require('webpack-pwa-manifest');
-const OfflinePlugin = require('offline-plugin');
-const { HashedModuleIdsPlugin } = require('webpack');
-const TerserPlugin = require('terser-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
+import * as path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import WebpackPwaManifest from 'webpack-pwa-manifest';
+import OfflinePlugin from 'offline-plugin';
+import { HashedModuleIdsPlugin } from 'webpack';
+import TerserPlugin from 'terser-webpack-plugin';
+import CompressionPlugin from 'compression-webpack-plugin';
+import webpackBabelBase from './webpack.base.babel';
 
-module.exports = require('./webpack.base.babel')({
+const rootDir = path.join(process.cwd(), "./../../");
+
+export =  webpackBabelBase({
   mode: 'production',
 
   // In production, we skip all hot-reloading stuff
   entry: [
     require.resolve('react-app-polyfill/ie11'),
-    path.join(process.cwd(), 'app/app.tsx'),
+    path.join(process.cwd(), "./../../../", 'app/app.tsx'),
   ],
 
   // Utilize long-term caching by adding content hashes (not compilation hashes) to compiled assets
@@ -24,7 +27,7 @@ module.exports = require('./webpack.base.babel')({
 
   tsLoaders: [
     // Babel also have typescript transpiler. Uncomment this if you prefer and comment-out ts-loader
-    // { loader: 'babel-loader' },
+    /*{ loader: 'babel-loader' },*/
     {
       loader: 'ts-loader',
       options: {
@@ -159,4 +162,6 @@ module.exports = require('./webpack.base.babel')({
     assetFilter: assetFilename =>
       !/(\.map$)|(^(main\.|favicon\.))/.test(assetFilename),
   },
-});
+})
+
+

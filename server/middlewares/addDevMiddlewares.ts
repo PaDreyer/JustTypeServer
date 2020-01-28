@@ -1,7 +1,7 @@
-const path = require('path');
-const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
+import * as path from 'path';
+import webpack from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
 
 function createWebpackMiddleware(compiler, publicPath) {
   return webpackDevMiddleware(compiler, {
@@ -12,7 +12,7 @@ function createWebpackMiddleware(compiler, publicPath) {
   });
 }
 
-module.exports = function addDevMiddlewares(app, webpackConfig) {
+export default function addDevMiddlewares(app, webpackConfig) {
   const compiler = webpack(webpackConfig);
   const middleware = createWebpackMiddleware(
     compiler,
@@ -26,11 +26,13 @@ module.exports = function addDevMiddlewares(app, webpackConfig) {
   // artifacts, we use it instead
   const fs = middleware.fileSystem;
 
-  app.get('*', (req, res) => {
+  app.get('*', (req : Request, res : Response) => {
     fs.readFile(path.join(compiler.outputPath, 'index.html'), (err, file) => {
       if (err) {
+        // @ts-ignore
         res.sendStatus(404);
       } else {
+        // @ts-ignore
         res.send(file.toString());
       }
     });

@@ -2,18 +2,20 @@
  * COMMON WEBPACK CONFIGURATION
  */
 
-const path = require('path');
-const webpack = require('webpack');
+import * as path from 'path';
+import webpack from 'webpack';
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const rootDir = path.join(process.cwd(), "./../../");
 
-module.exports = options => ({
+export default (options => ({
   mode: options.mode,
   entry: options.entry,
   output: Object.assign(
     {
       // Compile into js/build.js
-      path: path.resolve(process.cwd(), 'build'),
+      path: path.resolve(rootDir, 'build'), // rootDir war process.cwd()
       publicPath: '/',
     },
     options.output,
@@ -121,9 +123,15 @@ module.exports = options => ({
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
     }),
-    new ForkTsCheckerWebpackPlugin({ checkSyntacticErrors: true }),
+    //new ForkTsCheckerWebpackPlugin({ checkSyntacticErrors: true }),
   ]),
   resolve: {
+    plugins: [
+      new TsconfigPathsPlugin({
+        configFile : "./../../tsconfig.server.json",
+        extensions : [".json", ".js" , ".tsx" , ".ts"]
+        })
+    ],
     modules: ['node_modules', 'app'],
     extensions: ['.js', '.jsx', '.react.js', '.ts', '.tsx'],
     mainFields: ['browser', 'jsnext:main', 'main'],
@@ -131,4 +139,4 @@ module.exports = options => ({
   devtool: options.devtool,
   target: 'web', // Make web variables accessible to webpack, e.g. window
   performance: options.performance || {},
-});
+}));

@@ -35,4 +35,4 @@ ${chalk.blue(`Press ${chalk.italic('CTRL-C')} to stop`)}
   },
 };
 
-module.exports = logger;
+export default logger;

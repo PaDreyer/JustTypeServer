@@ -1,0 +1,33 @@
+{
+    "module" : "commonjs",
+    "lib": ["dom", "es5", "es6", "es7", "es2017"],
+    "target" : "es5",
+    "include": [ 
+        "**/*"
+    ],
+    "compilerOptions": {
+        "outDir": "./../dist",
+        "target": "es5",
+        "module": "commonjs",
+        "noImplicitAny": false,
+        "baseUrl": ".",
+        "lib": ["dom", "es5", "es6", "es7", "es2017"],
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "declaration": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "moduleResolution": "node",
+        "noEmitOnError": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": false,
+        "strict": true,
+        "strictFunctionTypes": false,
+        "pretty": true,
+        "removeComments": true,
+        "sourceMap": true,
+        "resolveJsonModule": true
+      }
+  }

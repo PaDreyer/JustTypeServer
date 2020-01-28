@@ -1,21 +1,38 @@
-/* eslint consistent-return:0 import/order:0 */
+import express from 'express';
 
-const express = require('express');
-const logger = require('./logger');
+//const express = require('express');
 
-const argv = require('./argv');
-const port = require('./port');
-const setup = require('./middlewares/frontendMiddleware');
+//const logger = require('./logger');
+import logger from './logger';
+
+
+//const argv = require('./argv');
+import argv from './argv';
+
+//const port = require('./port');
+import port from './port';
+
+//const setup = require('./middlewares/frontendMiddleware');
+import setup from './middlewares/frontendMiddleware';
+
+import { resolve } from 'path';
+
+import Api from './middlewares/Api';
+
 const isDev = process.env.NODE_ENV !== 'production';
 const ngrok =
   (isDev && process.env.ENABLE_TUNNEL) || argv.tunnel
-    ? require('ngrok')
+    ? true // was require('ngrok')
     : false;
-const { resolve } = require('path');
-const app = express();
+const app = express()
+
+app.use('/test', (req, res)=>{
+  res.send('test')
+})
 
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
 // app.use('/api', myApi);
+app.use('/api', Api);
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {
@@ -36,12 +53,14 @@ app.get('*.js', (req, res, next) => {
 });
 
 // Start your app.
+console.log("port: ", port);
 app.listen(port, host, async err => {
   if (err) {
     return logger.error(err.message);
   }
 
   // Connect to ngrok in dev mode
+  /*
   if (ngrok) {
     let url;
     try {
@@ -51,6 +70,7 @@ app.listen(port, host, async err => {
     }
     logger.appStarted(port, prettyHost, url);
   } else {
-    logger.appStarted(port, prettyHost);
+    logger.appStarted(port, prettyHost, null);
   }
+  */
 });

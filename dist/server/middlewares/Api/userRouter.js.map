@@ -1,0 +1,1 @@
+{"version":3,"file":"userRouter.js","sourceRoot":"","sources":["../../../../server/middlewares/Api/userRouter.ts"],"names":[],"mappings":";;AAAA,mCAAiC;AACjC,IAAM,MAAM,GAAI,gBAAM,EAAE,CAAC;AAEzB,MAAM,CAAC,GAAG,CAAC,GAAG,EAAE,UAAC,GAAG,EAAE,GAAG;AAEzB,CAAC,CAAC,CAAC;AAGH,kBAAe,MAAM,CAAC"}
