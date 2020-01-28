@@ -45,10 +45,6 @@
 
 <br />
 
-<div align="center">
-  <sub>Created by <a href="https://twitter.com/mxstbr">Max Stoiber</a> and maintained with ❤️ by an amazing <a href="https://github.com/orgs/react-boilerplate/people">team of developers</a>.</sub>
-</div>
-
 ---
 
 # Typescript

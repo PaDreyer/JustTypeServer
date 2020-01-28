@@ -73,6 +73,8 @@
     "babel-core": "7.0.0-bridge.0"
   },
   "dependencies": {
+    "@material-ui/core": "^4.9.0",
+    "@material-ui/icons": "^4.5.1",
     "bcryptjs": "^2.4.3",
     "chalk": "2.4.2",
     "class-validator": "^0.11.0",
