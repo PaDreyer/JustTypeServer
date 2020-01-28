@@ -27,6 +27,9 @@ import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
+
+import { Card, CardContent, CardHeader } from '@material-ui/core';
+
 const key = 'home';
 
 const stateSelector = createStructuredSelector({
@@ -78,6 +81,14 @@ export default function HomePage() {
           content="A React.js Boilerplate application homepage"
         />
       </Helmet>
+      <Card >
+        <CardHeader>
+          BAM
+        </CardHeader>
+        <CardContent>
+          BAAAM
+        </CardContent>
+      </Card>
       <div>
         <CenteredSection>
           <H2>
