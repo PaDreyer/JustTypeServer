@@ -32,6 +32,7 @@ import { CircularProgress } from '@material-ui/core';
 import HomePage from 'containers/HomePage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import LoadingIndicator from './../../components/Loading/MainLoading';
 
 
 const stateSelector = createStructuredSelector({
@@ -69,7 +70,7 @@ export default function App() {
   return (
     <div>
         { secureLogin.authenticated == null &&
-          <CircularProgress />
+          <LoadingIndicator />
         }
         { secureLogin.authenticated == true &&
           <Switch>
@@ -84,6 +85,13 @@ export default function App() {
         </Switch>
         }
       <GlobalStyle />
+      <div style={{
+        backgroundColor: 'black',
+        width: '100vw',
+        height: '101vh',
+        zIndex: -100
+      }}>
+      </div>
     </div>
   );
 }

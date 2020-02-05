@@ -83,7 +83,7 @@ export function* register_request(action){
 // Individual exports for testing
 export default function* homePageSaga() {
   // See example in containers/HomePage/saga.js
-  all([
+  yield all([
     yield takeLatest(ActionTypes.AUTH_REQUEST, auth_request),
     yield takeLatest(ActionTypes.LOGIN_REQUEST, login_request),
     yield takeLatest(ActionTypes.REGISTER_REQUEST, register_request)

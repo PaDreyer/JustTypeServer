@@ -21,14 +21,31 @@ import { } from './actions';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      height: '101vh',
+      width: '100wh',
+      backgroundColor: 'black'
+    },
+  }),
+);
+
+
 
 export default function HomePage() {
   useInjectReducer({ key: 'home', reducer: reducer });
   useInjectSaga({ key: 'home', saga: saga });
 
+  const classes = useStyles()
+
   return (
-    <h1>
-      <FormattedMessage {...messages.header} />
-    </h1>
+    <div className={classes.root}>
+      <h1 >
+        <FormattedMessage {...messages.header} />
+      </h1>
+    </div>
   );
 }

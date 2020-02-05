@@ -27,9 +27,10 @@ import { Card,
     Input,
     InputLabel,
     Checkbox, 
-    FormControlLabel } from '@material-ui/core';
+    FormControlLabel,
+    InputAdornment } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import {Help as HelpIcon} from '@material-ui/icons';
+import {Help as HelpIcon, AccountCircle, Lock} from '@material-ui/icons';
 import clsx from 'clsx';
 
 
@@ -183,7 +184,14 @@ export default function mainLogin(props) {
                                                   placeholder="username" 
                                                   inputRef={userNode} 
                                                   variant="outlined"
-                                                  label="username"  
+                                                  label="username"
+                                                  InputProps={{
+                                                    startAdornment: (
+                                                      <InputAdornment position="start">
+                                                        <AccountCircle />
+                                                      </InputAdornment>
+                                                    ),
+                                                  }}
                                                 />
                                               </Box>
                                             </Grid>
@@ -214,7 +222,15 @@ export default function mainLogin(props) {
                                                   placeholder="password" 
                                                   inputRef={passNode}
                                                   label="password"
-                                                  variant="outlined"/>
+                                                  variant="outlined"
+                                                  InputProps={{
+                                                    startAdornment: (
+                                                      <InputAdornment position="start">
+                                                        <Lock />
+                                                      </InputAdornment>
+                                                    ),
+                                                  }}
+                                                  />
                                               </Box>
                                             </Grid>
 
@@ -232,6 +248,8 @@ export default function mainLogin(props) {
                                           </Grid>                                          
                                         {/*</Box>*/}
                                       </Grid>
+
+                                      {/*
                                       <Grid item xs={12}>
                                         <Box display="flex" justifyContent="center">
                                           <Box justifyContent="left">
@@ -247,6 +265,9 @@ export default function mainLogin(props) {
                                           </Box>
                                         </Box>
                                       </Grid>
+                                      */}
+
+
                                     </Grid>
                             </Box>
                             <Box display="flex" justifyContent="center" mt={3}>
