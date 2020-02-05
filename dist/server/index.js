@@ -40,6 +40,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
+var cors_1 = __importDefault(require("cors"));
 var logger_1 = __importDefault(require("./logger"));
 var argv_1 = __importDefault(require("./argv"));
 var port_1 = __importDefault(require("./port"));
@@ -68,6 +69,7 @@ app.get('*.js', function (req, res, next) {
     next();
 });
 console.log("port: ", port_1.default);
+app.use(cors_1.default({ credentials: true }));
 app.listen(port_1.default, host, function (err) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         if (err) {

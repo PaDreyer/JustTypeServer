@@ -6,11 +6,21 @@
  * reducers accidentally picking up actions they shouldn't.
  *
  */
-
 enum ActionTypes {
-  LOAD_REPOS = 'boilerplate/App/LOAD_REPOS',
-  LOAD_REPOS_SUCCESS = 'boilerplate/App/LOAD_REPOS_SUCCESS',
-  LOAD_REPOS_ERROR = 'boilerplate/App/LOAD_REPOS_ERROR',
-}
+    DEFAULT_ACTION = 'app/AppPage/DEFAULT_ACTION',
 
+    LOGIN_REQUEST = 'app/AppPage/LOGIN_REQUEST',
+    LOGIN_SUCCESS = 'app/AppPage/LOGIN_SUCCESS',
+    LOGIN_FAILURE = 'app/AppPage/LOGIN_FAILURE',
+
+    REGISTER_REQUEST = 'app/AppPage/REGISTER_REQUEST',
+    REGISTER_SUCCESS = 'app/AppPage/REGISTER_SUCCESS',
+    REGISTER_FAILURE = 'app/AppPage/REGISTER_FAILURE',
+
+    AUTH_REQUEST = 'app/AppPage/AUTH_REQUEST',
+    AUTH_SUCCESS = 'app/AppPage/AUTH_SUCCESS',
+    AUTH_FAILURE = 'app/AppPage/AUTH_FAILURE',
+  }
+  
 export default ActionTypes;
+  

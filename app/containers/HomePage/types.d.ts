@@ -3,19 +3,16 @@ import * as actions from './actions';
 import { ApplicationRootState } from 'types';
 
 /* --- STATE --- */
-
-interface HomeState {
-  readonly username: string;
+interface HomePageState {
+  readonly default: any;
 }
 
 /* --- ACTIONS --- */
-type AppActions = ActionType<typeof actions>;
-
+type HomePageActions = ActionType<typeof actions>;
 
 /* --- EXPORTS --- */
-
 type RootState = ApplicationRootState;
-type ContainerState = HomeState;
-type ContainerActions = AppActions;
+type ContainerState = HomePageState;
+type ContainerActions = HomePageActions;
 
 export { RootState, ContainerState, ContainerActions };

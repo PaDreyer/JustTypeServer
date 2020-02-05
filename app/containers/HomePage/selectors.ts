@@ -1,18 +1,25 @@
-/**
- * Homepage selectors
- */
-
 import { createSelector } from 'reselect';
-import { initialState } from './reducer';
 import { ApplicationRootState } from 'types';
 
-const selectHome = (state: ApplicationRootState) => {
-  return state.home || initialState;
-};
+const selectRoute = (state: ApplicationRootState) => state.router;
 
-const makeSelectUsername = () =>
-  createSelector(selectHome, substate => {
-    return substate.username;
-  });
+const makeSelectLocation = () =>
+  createSelector(selectRoute, routeState => routeState.location);
 
-export { selectHome, makeSelectUsername };
+
+const selectAppState = (state: ApplicationRootState) => state.app;
+
+const makeSelectApp = () =>
+  createSelector(selectAppState, appState => appState);
+
+const selectLoginState = (state: ApplicationRootState) => state.login;
+
+const makeSelectLogin = () => 
+  createSelector(selectLoginState, loginState => loginState);
+
+const selectHomeState = (state: ApplicationRootState) => state.home;
+
+const makeSelectHome = () =>
+  createSelector(selectHomeState, homeState => homeState);
+
+export { makeSelectLocation, makeSelectApp, makeSelectLogin, makeSelectHome };

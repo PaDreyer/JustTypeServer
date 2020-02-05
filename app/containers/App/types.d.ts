@@ -1,30 +1,30 @@
 import { ActionType } from 'typesafe-actions';
 import * as actions from './actions';
-import { Repo } from '../RepoListItem/types';
-import { ApplicationRootState } from '../../types';
+import { ApplicationRootState } from 'types';
 
 /* --- STATE --- */
+interface AppPageState {
+  readonly default: any;
+  user : any;
+  authenticated : null | boolean;
+  authenticatedError : null | Error;
 
-interface AppState {
-  readonly loading: boolean;
-  readonly error?: object | boolean;
-  readonly currentUser: string;
-  readonly userData: UserData;
+  requestLogin : null | boolean;
+  requestLoginError : null | Error;
+
+  requestAuth : null | boolean;
+  requestAuthError : null | Error;
+
+  requestRegister : null | boolean;
+  requestRegisterError : null | Error;
 }
-
-interface UserData {
-  readonly repos?: Repo[];
-}
-
 
 /* --- ACTIONS --- */
-type AppActions = ActionType<typeof actions>;
-
+type AppPageActions = ActionType<typeof actions>;
 
 /* --- EXPORTS --- */
-
 type RootState = ApplicationRootState;
-type ContainerState = AppState;
-type ContainerActions = AppActions;
+type ContainerState = AppPageState;
+type ContainerActions = AppPageActions;
 
-export { RootState, ContainerState, ContainerActions, UserData };
+export { RootState, ContainerState, ContainerActions };

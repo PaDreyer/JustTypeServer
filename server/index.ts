@@ -1,4 +1,6 @@
 import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
 
 //const express = require('express');
 
@@ -25,6 +27,9 @@ const ngrok =
     ? true // was require('ngrok')
     : false;
 const app = express()
+
+//app.use(helmet());
+//app.use(cors({credentials:true}));
 
 app.use('/test', (req, res)=>{
   res.send('test')
@@ -54,6 +59,7 @@ app.get('*.js', (req, res, next) => {
 
 // Start your app.
 console.log("port: ", port);
+app.use(cors({credentials:true}));
 app.listen(port, host, async err => {
   if (err) {
     return logger.error(err.message);
