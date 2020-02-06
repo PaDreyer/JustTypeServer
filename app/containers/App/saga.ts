@@ -57,7 +57,6 @@ export function* register_request(action){
   const userObj = { user : { username, password } };
 
   const requestURL = `${api}/register`;
-  console.log("requesting")
 
   const response = yield axios.post(requestURL, userObj, {
     withCredentials: true,
@@ -67,7 +66,6 @@ export function* register_request(action){
     }
   });
 
-  console.log("Response: ", response);
   if(response.responsteText = "OK"){
     if(response.data.authenticated) {
     // call register success

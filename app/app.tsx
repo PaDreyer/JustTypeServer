@@ -43,6 +43,8 @@ openSansObserver.load().then(() => {
 });
 
 const theme = createMuiTheme({
+  overrides: {
+  },
   typography: {
     //fontSize: 10,
     //fontWeightBold : 30,

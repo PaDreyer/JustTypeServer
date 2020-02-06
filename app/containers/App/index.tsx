@@ -85,6 +85,7 @@ export default function App() {
         </Switch>
         }
       <GlobalStyle />
+      {/*
       <div style={{
         backgroundColor: 'black',
         width: '100vw',
@@ -92,6 +93,7 @@ export default function App() {
         zIndex: -100
       }}>
       </div>
+      */}
     </div>
   );
 }

@@ -17,6 +17,11 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+      Menu: {
+      },
+      AppBar: {
+        backgroundColor: 'black'
+      },
     grow: {
       flexGrow: 1,
     },
@@ -24,6 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(2),
     },
     title: {
+        color: 'black',
       display: 'none',
       [theme.breakpoints.up('sm')]: {
         display: 'block',
@@ -163,7 +169,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position="static" className={classes.AppBar}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -174,7 +180,7 @@ export default function PrimarySearchAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Material-UI
+            BetRoom
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
