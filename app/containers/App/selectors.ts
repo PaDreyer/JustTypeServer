@@ -14,7 +14,7 @@ const makeSelectApp = () =>
 
 const selectLoginState = (state: ApplicationRootState) => state.login;
 
-const makeSelectLogin = () => 
+const makeSelectLogin = () =>
   createSelector(selectLoginState, loginState => loginState);
 
 const selectHomeState = (state: ApplicationRootState) => state.home;
@@ -27,4 +27,9 @@ const selectRouterState = (state: ApplicationRootState) => state.router;
 const makeSelectRouter = () =>
   createSelector(selectRouterState, routerState => routerState);
 
-export { makeSelectLocation, makeSelectApp, makeSelectLogin, makeSelectHome, makeSelectRouter };
+const selectFriendsState = (state: ApplicationRootState) => state.friends;
+
+const makeSelectFriends = () =>
+  createSelector(selectFriendsState, friendsState => friendsState);
+
+export { makeSelectLocation, makeSelectApp, makeSelectLogin, makeSelectHome, makeSelectRouter, makeSelectFriends };

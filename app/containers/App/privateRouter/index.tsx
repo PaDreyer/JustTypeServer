@@ -1,46 +1,15 @@
-/**
- *
- * App.js
- *
- * This component is the skeleton around the actual pages, and should only
- * contain code that should be seen on all pages. (e.g. navigation bar)
- *
- */
-
-import * as React from 'react';
-import { Switch, Route } from 'react-router-dom';
-
-import { useInjectSaga } from 'utils/injectSaga';
-import { useInjectReducer } from 'utils/injectReducer';
-import { makeSelectLogin } from './../selectors';
-
-import reducer from './../reducer';
-import saga from './../saga';
-
-import HomePage from 'containers/HomePage/Loadable';
-import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import React from 'react';
+import { Route, Redirect  } from 'react-router-dom'
 
 
-/*
-Plan: 
-return 
-  <PublicRouter />
-
-  <PrivateRouter />
-*/
-
-import GlobalStyle from '../../../global-styles';
-export default function App(props) {
-  console.log("props privateRouter: ", props);
-  useInjectReducer({ key: 'app', reducer: reducer });
-  useInjectSaga({ key: 'app', saga: saga });
+export default function PrivateRoute({ component : Component, ...rest}){
   return (
-    <div>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route component={NotFoundPage} />
-      </Switch>
-      <GlobalStyle />
-    </div>
-  );
+    <Route {...rest} render={(props : any)=>{
+      if(rest.auth){
+        return <Component {...props} {...rest} />
+      } else {
+        return <Redirect to="/login" />
+      }
+    }} />
+  )
 }

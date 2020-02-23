@@ -7,8 +7,8 @@
  *
  */
 enum ActionTypes {
-    DEFAULT_ACTION = 'app/AppPage/DEFAULT_ACTION',
+    DEFAULT_ACTION = 'app/HomePage/DEFAULT_ACTION',
   }
-  
+
 export default ActionTypes;
-  
+

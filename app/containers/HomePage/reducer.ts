@@ -12,11 +12,12 @@ export const initialState: ContainerState = {
   default: null,
 };
 
-const homePageReducer = (state : ContainerState = initialState, action : ContainerActions) =>
+const homePageReducer = (state: ContainerState = initialState, action: ContainerActions) =>
   produce(state, draft => {
     switch (action.type) {
       case ActionTypes.DEFAULT_ACTION:
         break;
+
       default:
         break;
     }

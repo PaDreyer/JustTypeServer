@@ -42,7 +42,7 @@ const stateSelector = createStructuredSelector({
   App: makeSelectApp(),
   Login: makeSelectLogin(),
   Home: makeSelectHome(),
-  Router: makeSelectRouter()
+  Router: makeSelectRouter(),
 });
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -50,14 +50,18 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       height: '101vh',
       width: '100wh',
-      backgroundColor: 'black'
+      //backgroundColor: 'black'
     },
   }),
 );
 
 
 
-export default function HomePage() {
+export default function HomePage(props) {
+  const { toggleGroups, friends, createGroup } = props;
+  console.log("PROPS: ", props);
+  //console.log("HOMEPAGE: ", toggleGroups)
+
   useInjectReducer({ key: 'home', reducer: reducer });
   useInjectSaga({ key: 'home', saga: saga });
 
@@ -67,29 +71,18 @@ export default function HomePage() {
   useInjectReducer({ key: 'login', reducer: reducerLogin });
   useInjectSaga({ key: 'login', saga: sagaLogin });
 
+
   const classes = useStyles()
   const { App, Login, Home, Router } = useSelector(stateSelector);
-
-
-
-  function getFriends(){
-
-  }
-
-  let friends = App.user.friends;
+  //const secureFriends = Friends != undefined && Friends.userFriends ? Friends.userFriends : [];
 
   console.log("router: ", Router);
 
   return (
     <div className={classes.root}>
-      <DrawerNavigation />
-      <Switch>
-        <Route exact path="/" render={(props)=><Overview {...props} />} />
-        <Route exact path="/friends" render={(props)=><TableFriends getFriends={getFriends} friends={friends} {...props}/>} />
-      </Switch>
-      <h1>
-        <FormattedMessage {...messages.header} />
-      </h1>
+        <Overview toggleGroups={toggleGroups} friends={friends} createGroup={createGroup} app={App}/>
     </div>
   );
 }
+
+//<FormattedMessage {...messages.header} />

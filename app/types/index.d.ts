@@ -4,6 +4,8 @@ import { ContainerState as LanguageProviderState } from 'containers/LanguageProv
 import { ContainerState as AppContainerState } from 'containers/App/types';
 import { ContainerState as LoginContainerState } from 'containers/LoginPage/types';
 import { ContainerState as HomeContainerState } from 'containers/HomePage/types';
+import { ContainerState as FriendsContainerState } from 'containers/Friends/types';
+import { ContainerState as BetsContainerState } from 'containers/Bets/types';
 
 export interface InjectedStore extends Store {
   injectedReducers: any;
@@ -31,4 +33,6 @@ export interface ApplicationRootState {
   readonly home: HomeContainerState;
   readonly login: LoginContainerState;
   readonly app: AppContainerState;
+  readonly friends: FriendsContainerState;
+  readonly bets: BetsContainerState;
 }

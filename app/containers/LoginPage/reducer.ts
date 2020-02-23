@@ -10,15 +10,15 @@ import { ContainerState, ContainerActions } from './types';
 
 export const initialState: ContainerState = {
   default: null,
-  view: "login"
+  view: 'login',
 };
 
-const loginPageReducer = (state : ContainerState = initialState, action : ContainerActions) =>
+const loginPageReducer = (state: ContainerState = initialState, action: ContainerActions) =>
   produce(state, draft => {
     switch (action.type) {
       case ActionTypes.DEFAULT_ACTION:
         break;
-      
+
       case ActionTypes.SET_VIEW:
         draft.view = action.payload;
         break;
@@ -26,6 +26,6 @@ const loginPageReducer = (state : ContainerState = initialState, action : Contai
       default:
         break;
     }
-  })
+  });
 
 export default loginPageReducer;

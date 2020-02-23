@@ -17,6 +17,24 @@ interface AppPageState {
 
   requestRegister : null | boolean;
   requestRegisterError : null | Error;
+
+  requestNotifications : null | boolean;
+  requestNotificationsError : null | Error;
+
+  requestGroups : null | boolean;
+  requestGroupsError : null | Error;
+
+  requestCreateGroup : null | boolean;
+  requestCreateGroupError : null | Error;
+
+  requestFriends: null | boolean;
+  requestFriendsError: null | Error;
+
+  requestBets: null | boolean;
+  requestBetsError: null | Error;
+
+  requestCreateBet: null | boolean;
+  requestCreateBetError: null | boolean;
 }
 
 /* --- ACTIONS --- */

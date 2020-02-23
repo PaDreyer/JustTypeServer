@@ -103,7 +103,7 @@ function LoginPage(props: Props) {
 
   const { Login, App, Router } = useSelector(stateSelector);
   const dispatch = useDispatch();
-  console.log("ROUTER: ", Router);
+  //console.log("ROUTER: ", Router);
 
   function login({ username, password}){
     //Error abfangen, wenn user null sind

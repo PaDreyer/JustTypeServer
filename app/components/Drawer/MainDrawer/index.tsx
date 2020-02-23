@@ -15,6 +15,14 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
+import { Box } from '@material-ui/core';
+
+
+import NotificationList from './../../NotificationList/MainNotificationList';
+
+import { Link } from 'react-router-dom';
+
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
       Menu: {
@@ -82,20 +90,58 @@ const useStyles = makeStyles((theme: Theme) =>
         display: 'none',
       },
     },
+    homeLink: {
+      textDecoration: 'none',
+      color: 'white'
+    },
+    navigationLink: {
+      textDecoration: 'none',
+      color: 'white'
+    }
   }),
 );
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar(props) {
+  const { notificationList, toggleNotificationList, userLogout, userProfile, toggleFriends, toggleGroups } = props;
+
+  React.useEffect(()=>{
+    toggleNotificationList();
+  }, []);
+
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
 
+  const [ anchorElNotification, setAnchorElNotification] = React.useState<null | HTMLElement>(null);
+  const [ mobileAnchorElNotification, setMobileAnchorElNotification] = React.useState<null | HTMLElement>(null);
+
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const isNotificationOpen = Boolean(anchorElNotification);
+  const isMobileNotificationOpen = Boolean(mobileAnchorElNotification);
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const handleNotificationMenuOpen = (event : React.MouseEvent<HTMLElement>) => {
+    setAnchorElNotification(event.currentTarget);
+  }
+
+  const handleMobileNotificationClose = () => {
+    setMobileAnchorElNotification(null);
+  }
+
+  const handleNotificationClose = () => {
+    setAnchorElNotification(null);
+    handleMobileNotificationClose();
+  }
+
+  const handleMobileNotificationOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setMobileAnchorElNotification(event.currentTarget);
+  }
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -110,6 +156,55 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const handleLogout = () => {
+    userLogout();
+    handleMenuClose();
+  }
+
+  const handleUserProfile = () => {
+    userProfile();
+    handleMenuClose();
+  }
+
+  const notificationId = 'primary-notification-menu';
+  const renderNotifications = (
+    <Menu
+      anchorEl={anchorElNotification}
+      anchorOrigin={{vertical: 'top', horizontal: 'right'}}
+      id={notificationId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right'}}
+      open={isNotificationOpen}
+      onClose={handleNotificationClose}
+      >
+        <MenuItem>
+          { 
+            <NotificationList 
+            notificationList={notificationList} 
+            toggleNotificationList={toggleNotificationList}
+            toggleFriends={toggleFriends}
+            />
+          }
+        </MenuItem>
+      </Menu>
+  )
+
+  const mobileNotificationId = 'primary-notification-mobile-menu';
+  const renderMobileNotifications = (
+    <Menu
+    anchorEl={mobileAnchorElNotification}
+    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+    id={mobileNotificationId}
+    keepMounted
+    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+    open={isMobileNotificationOpen}
+    onClose={handleMobileNotificationClose}
+  >
+    <MenuItem >TESTER</MenuItem>
+  </Menu>
+  )
+
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -121,10 +216,11 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleUserProfile}>profile</MenuItem>
+      <MenuItem onClick={handleLogout}>logout</MenuItem>
     </Menu>
   );
+
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
@@ -137,17 +233,13 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
+      <MenuItem onClick={handleNotificationMenuOpen}>
+        <IconButton 
+          aria-label="show 11 new notifications" 
+          aria-controls={notificationId}
+          aria-haspopup="true"
+          color="inherit">
+          <Badge badgeContent={notificationList.length} color="secondary">
             <NotificationsIcon />
           </Badge>
         </IconButton>
@@ -171,39 +263,60 @@ export default function PrimarySearchAppBar() {
     <div className={classes.grow}>
       <AppBar position="static" className={classes.AppBar}>
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
+          {/*
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="open drawer"
+            >
+              <MenuIcon />
+            </IconButton>
+          */}
           <Typography className={classes.title} variant="h6" noWrap>
+            <Link to="/" className={classes.homeLink}>
+              BetRoom
+            </Link>
             BetRoom
           </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+          <Box display="flex" flexDirection="row" justifyContent="space-between">
+            <Box m={1}>
+              <Link to="/friends" className={classes.navigationLink}>
+                Friends
+              </Link>
+            </Box>
+            <Box m={1}>
+              <Link to="/bets" className={classes.navigationLink}>
+                Bets
+              </Link>
+            </Box>
+          </Box>
+          {/*
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+              />
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
+          */}
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
+            <IconButton 
+              edge="end"
+              aria-label="show 4 new mails" 
+              aria-haspopup="true"
+              aria-controls={notificationId}
+              onClick={handleNotificationMenuOpen}
+              color="inherit"
+              >
+              <Badge badgeContent={notificationList.length} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
@@ -233,6 +346,8 @@ export default function PrimarySearchAppBar() {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
+      {renderMobileNotifications}
+      {renderNotifications}
     </div>
   );
 }

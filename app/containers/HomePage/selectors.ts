@@ -22,4 +22,10 @@ const selectHomeState = (state: ApplicationRootState) => state.home;
 const makeSelectHome = () =>
   createSelector(selectHomeState, homeState => homeState);
 
-export { makeSelectLocation, makeSelectApp, makeSelectLogin, makeSelectHome };
+const selectFriendsState = (state: ApplicationRootState) => state.friends;
+
+const makeFriendsHome = () =>
+  createSelector(selectFriendsState, friendsState => friendsState);
+
+
+export { makeSelectLocation, makeSelectApp, makeSelectLogin, makeSelectHome, makeFriendsHome };
