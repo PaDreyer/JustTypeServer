@@ -166,11 +166,11 @@ export function* user_friends_request() {
 }
 
 export function* user_group_create_request(action) {
-  const { name, member } = action.payload;
+  const { name, member, description } = action.payload;
 
   const requestURL = `${api}/user/groups/create`;
 
-  const response = yield axios.post(requestURL, { name, member }, {
+  const response = yield axios.post(requestURL, { name, member, description }, {
     withCredentials: true,
     headers: {
       'Content-Type' : 'application/json',

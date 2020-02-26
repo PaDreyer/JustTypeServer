@@ -5,31 +5,31 @@ import {
     Grid,
     Button,
     TextField,
-    Typography
+    Typography,
 } from '@material-ui/core';
-import { Send } from '@material-ui/icons'; 
+import { Send } from '@material-ui/icons';
 
 import MemberSearch from './../../MemberSearch/MainMemberSearch/';
 
-//const MemberSearchList = React.forwardRef( (props, ref) => <MemberSearch ref={ref}/>)
+// const MemberSearchList = React.forwardRef( (props, ref) => <MemberSearch ref={ref}/>)
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-        //backgroundColor: 'black',
-        width: '100wh',
-        height: '101vh',
-      display: 'flex',
-      '& > * + *': {
+        // backgroundColor: 'black',
+        'width': '100wh',
+        'height': '101vh',
+        'display': 'flex',
+        '& > * + *': {
         marginLeft: theme.spacing(2),
       },
     },
     gridContainer: {
-        minWidth: 600
-    }
-  })
+        minWidth: 600,
+    },
+  }),
 );
-  
+
 export default function GroupPropertys(props) {
     const { friends, onCreate, setOpenModal } = props;
 
@@ -37,26 +37,33 @@ export default function GroupPropertys(props) {
 
     const gNameRef = React.useRef<HTMLElement>();
     const gMembersRef = React.useRef<HTMLElement>();
+    const gDescriptionRef = React.useRef<HTMLElement>();
 
-    const [ name , setName ] = React.useState("");
+    const [ name , setName ] = React.useState('');
     const [ member, setMember ] = React.useState([]);
+    const [ description, setDescription ] = React.useState('');
 
-    function handleCreate(e){
-      //check username, need validation here
+    function handleCreate(e) {
+      // check username, need validation here
       onCreate({
         name,
-        member
-      })
+        member,
+        description
+      });
       setOpenModal(false);
     }
 
-    function handleNameChange(event){
+    function handleNameChange(event) {
         setName(gNameRef!.current!.value!);
 
     }
 
-    function handleMemberChange(event, value){
+    function handleMemberChange(event, value) {
         setMember(value);
+    }
+    
+    function handleDescriptionChange(event) {
+      setDescription(gDescriptionRef!.current!.value);
     }
 
     return (
@@ -87,6 +94,21 @@ export default function GroupPropertys(props) {
                       </Box>
               </Grid>
 
+
+              <Grid item xs={3}>
+                  <Box display="flex" flexDirection="row" alignItems="center" justifyItems="center">
+                          description
+                      </Box>
+              </Grid>
+
+              <Grid item xs={9}>
+              <Box>
+                          <TextField
+                          inputRef={gDescriptionRef}
+                          onChange={handleDescriptionChange}
+                          />
+                      </Box>
+              </Grid>
 
 
 

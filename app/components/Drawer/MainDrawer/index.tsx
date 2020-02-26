@@ -28,37 +28,37 @@ const useStyles = makeStyles((theme: Theme) =>
       Menu: {
       },
       AppBar: {
-        backgroundColor: 'black'
+        backgroundColor: 'black',
       },
-    grow: {
+      grow: {
       flexGrow: 1,
     },
-    menuButton: {
+      menuButton: {
       marginRight: theme.spacing(2),
     },
-    title: {
+      title: {
         color: 'black',
-      display: 'none',
-      [theme.breakpoints.up('sm')]: {
+        display: 'none',
+        [theme.breakpoints.up('sm')]: {
         display: 'block',
       },
     },
-    search: {
-      position: 'relative',
-      borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade(theme.palette.common.white, 0.15),
+      search: {
+      "position": 'relative',
+      "borderRadius": theme.shape.borderRadius,
+      "backgroundColor": fade(theme.palette.common.white, 0.15),
       '&:hover': {
         backgroundColor: fade(theme.palette.common.white, 0.25),
       },
-      marginRight: theme.spacing(2),
-      marginLeft: 0,
-      width: '100%',
+      "marginRight": theme.spacing(2),
+      "marginLeft": 0,
+      "width": '100%',
       [theme.breakpoints.up('sm')]: {
         marginLeft: theme.spacing(3),
         width: 'auto',
       },
     },
-    searchIcon: {
+      searchIcon: {
       width: theme.spacing(7),
       height: '100%',
       position: 'absolute',
@@ -67,10 +67,10 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       justifyContent: 'center',
     },
-    inputRoot: {
+      inputRoot: {
       color: 'inherit',
     },
-    inputInput: {
+      inputInput: {
       padding: theme.spacing(1, 1, 1, 7),
       transition: theme.transitions.create('width'),
       width: '100%',
@@ -78,33 +78,33 @@ const useStyles = makeStyles((theme: Theme) =>
         width: 200,
       },
     },
-    sectionDesktop: {
+      sectionDesktop: {
       display: 'none',
       [theme.breakpoints.up('md')]: {
         display: 'flex',
       },
     },
-    sectionMobile: {
+      sectionMobile: {
       display: 'flex',
       [theme.breakpoints.up('md')]: {
         display: 'none',
       },
     },
-    homeLink: {
+      homeLink: {
       textDecoration: 'none',
-      color: 'white'
+      color: 'white',
     },
-    navigationLink: {
+      navigationLink: {
       textDecoration: 'none',
-      color: 'white'
-    }
+      color: 'white',
+    },
   }),
 );
 
 export default function PrimarySearchAppBar(props) {
-  const { notificationList, toggleNotificationList, userLogout, userProfile, toggleFriends, toggleGroups } = props;
+  const { notificationList, toggleNotificationList, userLogout, userProfile, toggleFriends, toggleGroups, redirect } = props;
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
     toggleNotificationList();
   }, []);
 
@@ -126,22 +126,22 @@ export default function PrimarySearchAppBar(props) {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleNotificationMenuOpen = (event : React.MouseEvent<HTMLElement>) => {
+  const handleNotificationMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNotification(event.currentTarget);
-  }
+  };
 
   const handleMobileNotificationClose = () => {
     setMobileAnchorElNotification(null);
-  }
+  };
 
   const handleNotificationClose = () => {
     setAnchorElNotification(null);
     handleMobileNotificationClose();
-  }
+  };
 
   const handleMobileNotificationOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileAnchorElNotification(event.currentTarget);
-  }
+  };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -159,12 +159,13 @@ export default function PrimarySearchAppBar(props) {
   const handleLogout = () => {
     userLogout();
     handleMenuClose();
-  }
+  };
 
   const handleUserProfile = () => {
     userProfile();
     handleMenuClose();
-  }
+  };
+
 
   const notificationId = 'primary-notification-menu';
   const renderNotifications = (
@@ -183,14 +184,16 @@ export default function PrimarySearchAppBar(props) {
           */
         }
 
-          { 
-            
-            <NotificationList 
-            notificationList={notificationList} 
+          {
+
+            <NotificationList
+            notificationList={notificationList}
             toggleNotificationList={toggleNotificationList}
             toggleFriends={toggleFriends}
+            toggleGroups={toggleGroups}
+            redirect={redirect}
             />
-            
+
           }
           {
             /*
@@ -198,7 +201,7 @@ export default function PrimarySearchAppBar(props) {
             */
           }
       </Menu>
-  )
+  );
 
   const mobileNotificationId = 'primary-notification-mobile-menu';
   const renderMobileNotifications = (
@@ -213,7 +216,7 @@ export default function PrimarySearchAppBar(props) {
   >
     <MenuItem >TESTER</MenuItem>
   </Menu>
-  )
+  );
 
 
   const menuId = 'primary-search-account-menu';
@@ -245,8 +248,8 @@ export default function PrimarySearchAppBar(props) {
       onClose={handleMobileMenuClose}
     >
       <MenuItem onClick={handleNotificationMenuOpen}>
-        <IconButton 
-          aria-label="show 11 new notifications" 
+        <IconButton
+          aria-label="show 11 new notifications"
           aria-controls={notificationId}
           aria-haspopup="true"
           color="inherit">
@@ -319,9 +322,9 @@ export default function PrimarySearchAppBar(props) {
           */}
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton 
+            <IconButton
               edge="end"
-              aria-label="show 4 new mails" 
+              aria-label="show 4 new mails"
               aria-haspopup="true"
               aria-controls={notificationId}
               onClick={handleNotificationMenuOpen}

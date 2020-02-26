@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      width: 500,
+      "width": 500,
       '& > * + *': {
         marginTop: theme.spacing(3),
       },
@@ -26,7 +26,7 @@ export default function Tags(props) {
         multiple
         id="tags-outlined"
         options={friends}
-        getOptionLabel={(option : { username }) => option.username}
+        getOptionLabel={(option: { username }) => option.username}
         filterSelectedOptions
         onChange={onChange}
         renderInput={params => (

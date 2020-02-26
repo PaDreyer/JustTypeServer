@@ -25,10 +25,10 @@ import { Link } from 'react-router-dom';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-        //backgroundColor: 'black',
+        // backgroundColor: 'black',
         width: '100%',
-      display: 'flex',
-      '& > * + *': {
+        display: 'flex',
+        '& > * + *': {
         marginLeft: theme.spacing(2),
       },
     },

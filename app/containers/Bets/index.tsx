@@ -21,14 +21,25 @@ const stateSelector = createStructuredSelector({
   bets: makeSelectBets(),
 });
 
-interface Props {}
+interface Props {
+  toggleBets: ()=>void;
+  match: any;
+}
 
 function Bets(props: Props) {
   // Warning: Add your key to RootState in types/index.d.ts file
   useInjectReducer({ key: 'bets', reducer: reducer });
   useInjectSaga({ key: 'bets', saga: saga });
+  
+  const { toggleBets, match } = props;
+  const { id } = match;
+
+  React.useEffect(()=>{
+    toggleBets();
+  }, [])
 
   console.log("PROPS IN BETS: ", props);
+  
 
   const { bets } = useSelector(stateSelector);
   const dispatch = useDispatch();

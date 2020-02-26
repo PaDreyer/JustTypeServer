@@ -28,7 +28,7 @@ import homeSaga from './../HomePage/saga';
 import loginReducer from './../LoginPage/reducer';
 import loginSaga from './../LoginPage/saga';
 
-import { requestAuth, requestLogin, requestRegister, requestGroups, requestCreateGroup } from './actions';
+import { requestAuth, requestLogin, requestRegister, requestGroups, requestCreateGroup, requestBets } from './actions';
 import { requestNotfications, requestFriends } from './actions';
 
 import HomePage from 'containers/HomePage/Loadable';
@@ -82,6 +82,10 @@ export default function App() {
     dispatch(requestCreateGroup(data))
   }
 
+  function toggleBets(){
+    dispatch(requestBets());
+  }
+
   function userLogout(){
     document.cookie = "betroom=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     dispatch(requestAuth());
@@ -89,6 +93,10 @@ export default function App() {
 
   function userProfile(){
     //redirect to user page
+  }
+
+  function redirect(url){
+    dispatch(push(url));
   }
 
 
@@ -133,7 +141,8 @@ export default function App() {
             notificationList={secureNotifications} 
             toggleNotificationList={notificationToggle}
             toggleFriends={toggleFriends}
-            toggleGroups={toggleGroups}/>
+            toggleGroups={toggleGroups}
+            redirect={redirect}/>
           }
           <Switch>
             <PrivateRoute 
@@ -151,7 +160,12 @@ export default function App() {
               toggleFriends={toggleFriends}
               friends={secureFriends}
               />
-            <PrivateRoute auth={secureLogin.authenticated} path="/bets" component={Bets}/>
+            <PrivateRoute 
+              auth={secureLogin.authenticated} 
+              path="/bets/:id?" 
+              component={Bets}
+              toggleBets={toggleBets}
+              />
             <PrivateRoute auth={secureLogin.authenticated} component={NotFoundPage} />  
           </Switch>
         </div>

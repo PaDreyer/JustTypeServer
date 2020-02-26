@@ -234,6 +234,36 @@ const loginPageReducer = (state: ContainerState = initialState, action: Containe
         draft.requestFriendsError = action.payload;
         break;
 
+      case ActionTypes.USER_BETS_REQUEST:
+        draft.requestBets = true;
+        break;
+
+      case ActionTypes.USER_BETS_SUCCESS:
+        draft.requestBets = false;
+        draft.user = { ...state.user, bets: action.payload };
+        break;
+
+      case ActionTypes.USER_BETS_FAILURE:
+        draft.requestBets = false;
+        draft.requestBetsError = action.payload;
+        break;
+
+      case ActionTypes.USER_BETS_CREATE_REQUEST:
+        draft.requestCreateBet = true;
+        break;
+
+      case ActionTypes.USER_BETS_CREATE_SUCCESS:
+        draft.requestCreateBet = false;
+        const newBets = draft.user.bets;
+        newBets.push(action.payload);
+        draft.user = { ...state.user, bets : newBets };
+        break;
+
+      case ActionTypes.USER_BETS_CREATE_FAILURE:
+        draft.requestCreateBet = false;
+        draft.requestCreateBetError = action.payload;
+        break;
+
       default:
         break;
     }

@@ -30,14 +30,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     notificationItem: {
       // textDecoration: 'none',
-      color : 'black'
+      color : 'black',
     },
     listItemSecondaryAction: {
-      display: 'flex'
+      display: 'flex',
     },
     buttonGroup: {
       maxWidth: 350,
-      width: 350
+      width: 350,
     },
     notificationContentWrapper: {
       width: '100%',
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     MenuItem: {
       width: '100%',
-    }
+    },
   }),
 );
 
@@ -56,64 +56,72 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 export default function InteractiveList(props) {
-    const { notificationList, toggleNotificationList , toggleFriends, toggleGroups } = props;
+    const { notificationList, toggleNotificationList , toggleFriends, toggleGroups, redirect } = props;
     // console.log("die props in comp: ", props);
     // console.log("die notificationlist im comp: ", notificationList)
-    
+
     const classes = useStyles();
     const [dense, setDense] = React.useState(true);
     const [secondary, setSecondary] = React.useState(false);
-  
 
-    async function handleFriendsAdd(notification){
+
+    async function handleFriendsAdd(notification) {
       const { friendId } = notification;
 
       const result = await axios.post('http://localhost:3001/user/friends/accept', { id : friendId }, {
         withCredentials: true,
         headers: {
-          "Accept" : "application/json",
-          "Content-Type" : "application/json"
-        }
+          'Accept' : 'application/json',
+          'Content-Type' : 'application/json',
+        },
       });
 
       // fehler abfangen !
-      if(!result.data.e){
+      if (!result.data.e) {
         toggleNotificationList();
         toggleFriends();
       }
     }
 
-    async function handleFriendsDeny(notification){
+    async function handleFriendsDeny(notification) {
       const { friendId } = notification;
 
       const result = await axios.post('http://localhost:3001/user/friends/deny', { id: friendId }, {
         withCredentials: true,
         headers: {
-          "Accept" : "application/json",
-          "Content-Type" : "application/json"
-        }
-      })
+          'Accept' : 'application/json',
+          'Content-Type' : 'application/json',
+        },
+      });
 
       // fehler abfangen !
-      if(!result.data.e){
+      if (!result.data.e) {
         toggleNotificationList();
         toggleFriends();
       }
     }
 
-    async function handleDeleteNotification(notification){
-      console.log("NOTIFICATION: ", notification);
+    function handleFriendsOpen(notification){
+      redirect("/friends");
     }
 
-    function getNotificationActions(notification){
+    function handleGroupsOpen(notification){
+      redirect(`/bets/${notification.groupId}`)
+    }
+
+    async function handleDeleteNotification(notification) {
+      console.log('NOTIFICATION: ', notification);
+    }
+
+    function getNotificationActions(notification) {
       let result;
 
-      switch(notification.categorie){
+      switch (notification.categorie) {
         case 'friends':
-          if(notification.type === 'add') {
+          if (notification.type === 'add') {
             const { friendName, friendId } = notification;
             result = (
-              <MenuItem className={classes.MenuItem} >
+              <MenuItem className={classes.MenuItem} onClick={()=>{handleFriendsOpen(notification)}}>
                 <Grid container justify="center">
                   <Grid item xs={6}>
                     <Box display="flex" className={classes.notificationContentWrapper}>
@@ -123,28 +131,28 @@ export default function InteractiveList(props) {
                           `${friendName} added you`
                         }
                         </Typography>
-                        </Box>
+                      </Box>
                   </Grid>
                   <Grid item xs={3}>
                     <Box display="flex" alignItems="center" justifyContent="center" className={classes.notificationContentWrapper}>
-                      <IconButton onClick={()=>{handleFriendsAdd(notification)}}><Check/></IconButton>
+                      <IconButton onClick={() => {handleFriendsAdd(notification); }}><Check/></IconButton>
                     </Box>
                   </Grid>
                   <Grid item xs={3}>
                     <Box display="flex" alignItems="center" justifyContent="center" className={classes.notificationContentWrapper}>
-                      <IconButton onClick={()=>{handleFriendsDeny(notification)}}><Cancel/></IconButton>
+                      <IconButton onClick={() => {handleFriendsDeny(notification); }}><Cancel/></IconButton>
                     </Box>
                   </Grid>
                 </Grid>
               </MenuItem>
-            )
+            );
           }
           break;
         case 'groups':
-          if(notification.type === 'add') {
+          if (notification.type === 'add') {
             const { friendName, friendId, groupId } = notification;
             result = (
-              <MenuItem className={classes.MenuItem}>
+              <MenuItem className={classes.MenuItem} onClick={()=>{handleGroupsOpen(notification)}}>
                 <Grid container justify="center">
                   <Grid item xs={9}>
                     <Box display="flex" className={classes.notificationContentWrapper} flexGrow={1}>
@@ -157,12 +165,12 @@ export default function InteractiveList(props) {
                   </Grid>
                   <Grid item xs={3}>
                     <Box display="flex" alignItems="center" justifyContent="center" className={classes.notificationContentWrapper}>
-                      <IconButton onClick={()=>{handleDeleteNotification(notification)}}><Cancel/></IconButton>
+                      <IconButton onClick={() => {handleDeleteNotification(notification); }}><Cancel/></IconButton>
                     </Box>
                   </Grid>
               </Grid>
             </MenuItem>
-            )
+            );
           }
 
           break;
@@ -178,7 +186,7 @@ export default function InteractiveList(props) {
           notificationList.length != 0 &&
           <Grid container className={classes.MainList}>
             {
-              notificationList.map( notification => {
+              notificationList.map(notification => {
                 return getNotificationActions(notification);
               })
             }
@@ -190,6 +198,6 @@ export default function InteractiveList(props) {
           </Typography>
         }
       </div>
-    )
+    );
 
 }

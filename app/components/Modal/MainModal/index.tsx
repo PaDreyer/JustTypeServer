@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { Box, Modal } from '@material-ui/core'
+import { Box, Modal } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -10,23 +10,23 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: 200,
       minWidth: 200,
       height: '100%',
-      width: '100%'
-      //maxWidth : 752
+      width: '100%',
+      // maxWidth : 752
     },
     paper: {
         position: 'absolute',
         width: '50%',
         backgroundColor: theme.palette.background.paper,
-        //boxShadow: theme.shadows[5],
+        // boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
-      }, 
+      },
   }),
 );
 
 function getModalStyle() {
     const top = 50;
     const left = 50;
-  
+
     return {
       top: `${top}%`,
       left: `${left}%`,
@@ -39,8 +39,8 @@ function getModalStyle() {
 
 
 export default function SimpleModal(props) {
-    let { component : Component,  open, componentProps, close } = props;
-    
+    const { component : Component,  open, componentProps, close } = props;
+
     const classes = useStyles();
 
     const [modalStyle] = React.useState(getModalStyle);
