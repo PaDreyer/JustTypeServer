@@ -177,15 +177,26 @@ export default function PrimarySearchAppBar(props) {
       open={isNotificationOpen}
       onClose={handleNotificationClose}
       >
+        {
+          /*
         <MenuItem>
+          */
+        }
+
           { 
+            
             <NotificationList 
             notificationList={notificationList} 
             toggleNotificationList={toggleNotificationList}
             toggleFriends={toggleFriends}
             />
+            
           }
+          {
+            /*
         </MenuItem>
+            */
+          }
       </Menu>
   )
 

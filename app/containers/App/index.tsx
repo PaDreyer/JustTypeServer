@@ -12,6 +12,8 @@ import { Switch, Route } from 'react-router-dom';
 import { push } from 'react-router-redux';
 import { useSelector, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 //import axios, { AxiosRequestConfig } from 'axios';
 
 import { useInjectSaga } from 'utils/injectSaga';
@@ -100,6 +102,21 @@ export default function App() {
   React.useEffect( ()=>{
     setTimeout(()=>{
       dispatch(requestAuth());
+
+      /*
+      const MySwal = withReactContent(Swal)
+
+      MySwal.fire({
+        title: <p>Hello World</p>,
+        footer: 'Copyright 2018',
+        onOpen: () => {
+          // `MySwal` is a subclass of `Swal`
+          //   with all the same instance & static methods
+          MySwal.clickConfirm()
+        }
+      })
+      */
+
     }, 500)
   }, [])
 

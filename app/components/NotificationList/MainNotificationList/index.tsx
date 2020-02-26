@@ -1,11 +1,5 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -17,7 +11,7 @@ import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Link } from 'react-router-dom';
 import { AccountCircle, Check, Cancel } from '@material-ui/icons';
-import { Box, ButtonGroup, Button } from '@material-ui/core';
+import { Box, ButtonGroup, Button, MenuItem } from '@material-ui/core';
 import axios from 'axios';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -41,36 +35,19 @@ const useStyles = makeStyles((theme: Theme) =>
     listItemSecondaryAction: {
       display: 'flex'
     },
-    ListItem: {
-      minWidth: 150
-    },
-    notificationText: {
-      minWidth: 200,
-      color: 'black',
-    },
     buttonGroup: {
       maxWidth: 350,
       width: 350
     },
     notificationContentWrapper: {
-      minWitdh: '100%',
       width: '100%',
       height: '100%',
-      // overflowWrap: 'break-word',
-      // display:'inline-block'
-      // display: 'block',
     },
     notificationTypoWrapper: {
-      overflowWrap: 'break-word',
-      display: 'inline-block',
-      // display: 'flex',
-      // flexWrap: 'wrap',
-      // whiteSpace: 'wrap',
-      // textOverflow: 'ellipsis',
-      // wordBreak: 'break-all',
-      maxWidth: 200,
-      // overflow:'scroll',
-      minHeight:50
+      whiteSpace: 'initial',
+    },
+    MenuItem: {
+      width: '100%',
     }
   }),
 );
@@ -136,28 +113,30 @@ export default function InteractiveList(props) {
           if(notification.type === 'add') {
             const { friendName, friendId } = notification;
             result = (
-              <Grid container justify="center">
-                <Grid item xs={6}>
-                  <Box display="flex" alignItems="center" justifyContent="center" className={classes.notificationContentWrapper}>
+              <MenuItem className={classes.MenuItem} >
+                <Grid container justify="center">
+                  <Grid item xs={6}>
+                    <Box display="flex" className={classes.notificationContentWrapper}>
 
-                      <Typography align="center">
-                      {
-                        `${friendName} added you`
-                      }
-                      </Typography>
-                      </Box>
+                        <Typography paragraph className={classes.notificationTypoWrapper}>
+                        {
+                          `${friendName} added you`
+                        }
+                        </Typography>
+                        </Box>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Box display="flex" alignItems="center" justifyContent="center" className={classes.notificationContentWrapper}>
+                      <IconButton onClick={()=>{handleFriendsAdd(notification)}}><Check/></IconButton>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Box display="flex" alignItems="center" justifyContent="center" className={classes.notificationContentWrapper}>
+                      <IconButton onClick={()=>{handleFriendsDeny(notification)}}><Cancel/></IconButton>
+                    </Box>
+                  </Grid>
                 </Grid>
-                <Grid item xs={3}>
-                  <Box display="flex" alignItems="center" justifyContent="center" className={classes.notificationContentWrapper}>
-                    <IconButton onClick={()=>{handleFriendsAdd(notification)}}><Check/></IconButton>
-                  </Box>
-                </Grid>
-                <Grid item xs={3}>
-                  <Box display="flex" alignItems="center" justifyContent="center" className={classes.notificationContentWrapper}>
-                    <IconButton onClick={()=>{handleFriendsDeny(notification)}}><Cancel/></IconButton>
-                  </Box>
-                </Grid>
-              </Grid>
+              </MenuItem>
             )
           }
           break;
@@ -165,21 +144,24 @@ export default function InteractiveList(props) {
           if(notification.type === 'add') {
             const { friendName, friendId, groupId } = notification;
             result = (
-              <Grid container justify="center" zeroMinWidth>
-                <Grid item xs={6} zeroMinWidth>
-
-                      {
-                        `${friendName} added youasdasdasd to a group`
-                      }
-
-                </Grid>
-                <Grid item xs={3}></Grid>
-                <Grid item xs={3}>
-                  <Box display="flex" alignItems="center" justifyContent="center" className={classes.notificationContentWrapper}>
-                    <IconButton onClick={()=>{handleDeleteNotification(notification)}}><Cancel/></IconButton>
-                  </Box>
-                </Grid>
-            </Grid>
+              <MenuItem className={classes.MenuItem}>
+                <Grid container justify="center">
+                  <Grid item xs={9}>
+                    <Box display="flex" className={classes.notificationContentWrapper} flexGrow={1}>
+                      <Typography paragraph className={classes.notificationTypoWrapper}>
+                          {
+                            (<p><strong>{friendName}</strong> added you to a group</p>)
+                          }
+                      </Typography>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Box display="flex" alignItems="center" justifyContent="center" className={classes.notificationContentWrapper}>
+                      <IconButton onClick={()=>{handleDeleteNotification(notification)}}><Cancel/></IconButton>
+                    </Box>
+                  </Grid>
+              </Grid>
+            </MenuItem>
             )
           }
 
@@ -191,23 +173,21 @@ export default function InteractiveList(props) {
     }
 
     return (
-      <div className={classes.demo}>
+      <div>
         {
           notificationList.length != 0 &&
           <Grid container className={classes.MainList}>
             {
               notificationList.map( notification => {
-
-                return (
-                  <Grid container className={classes.ListItem}>
-                    {
-                      getNotificationActions(notification)
-                    }
-                  </Grid>
-                );
+                return getNotificationActions(notification);
               })
             }
           </Grid>
+        }
+        { notificationList.length == 0 &&
+          <Typography>
+            there are no notifications
+          </Typography>
         }
       </div>
     )
