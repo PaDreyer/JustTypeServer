@@ -93,7 +93,7 @@ export default function MainGroupList(props) {
             {   
             
                 groups.map( group => (
-                    <Grid item xs={3} className={classes.gridItem}>
+                    <Grid item xs={3} className={classes.gridItems}>
                         <Card className={classes.gridCard}>
                         <CardHeader
                             action={

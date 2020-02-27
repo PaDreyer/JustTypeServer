@@ -35,10 +35,6 @@ export default function Overview(props) {
     const { toggleGroups, friends, createGroup, app } = props;
     console.log("overview: app: ", app);
 
-  function handleGroups(){
-    toggleGroups();
-  }
-
     return (
       <Box display="flex" flexDirection="column">
         <Box display="flex" flexDirection="row">

@@ -24,6 +24,9 @@ interface AppPageState {
   requestGroups : null | boolean;
   requestGroupsError : null | Error;
 
+  requestGroupBets : null | boolean;
+  requestGroupBetsError : null | boolean;
+
   requestCreateGroup : null | boolean;
   requestCreateGroupError : null | Error;
 

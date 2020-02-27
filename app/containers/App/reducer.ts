@@ -23,6 +23,8 @@ export const initialState: ContainerState = {
   requestNotificationsError : null,
   requestGroups : null,
   requestGroupsError : null,
+  requestGroupBets : null,
+  requestGroupBetsError : null,
   requestCreateGroup : null,
   requestCreateGroupError : null,
   requestFriends : null,
@@ -202,6 +204,32 @@ const loginPageReducer = (state: ContainerState = initialState, action: Containe
       case ActionTypes.USER_GROUP_FAILURE:
         draft.requestGroups = false;
         draft.requestGroupsError = action.payload;
+        break;
+
+      case ActionTypes.USER_GROUP_BETS_REQUEST:
+        draft.requestGroupBets = true;
+        break;
+
+      case ActionTypes.USER_GROUP_BETS_SUCCESS:
+          draft.requestGroupBets = false;
+          let editedGroups = [...state.user.grops];
+          editedGroups = editedGroups.reduce( (acumm, currVal, currIndex)=>{
+
+            action.payload.forEach( bet => {
+              if(currVal._id == bet.groupId){
+                acumm.bets.push(bet);
+                return acumm
+              }
+            })
+
+          }, []);
+
+          draft.user = { ...state.user, groups: editedGroups };
+          break;
+
+      case ActionTypes.USER_GROUP_BETS_FAILURE:
+        draft.requestGroupBets = false;
+        draft.requestGroupBetsError = action.payload;
         break;
 
       case ActionTypes.USER_GROUP_CREATE_REQUEST:

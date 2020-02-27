@@ -212,11 +212,12 @@ export function* user_bets_request(action) {
 }
 
 export function* user_bets_create_request(action) {
-  const { name, member, _id } = action.payload;
+  console.log("action payload: ", action.payload);
+  const { name, type, description, inset, group } = action.payload;
 
   const requestURL = `${api}/user/bets/create`;
 
-  const response = yield axios.post(requestURL, { name, member, _id }, {
+  const response = yield axios.post(requestURL, { name, type, description, inset, group }, {
     withCredentials: true,
     headers: {
       'Content-Type' : 'application/json',
@@ -224,6 +225,7 @@ export function* user_bets_create_request(action) {
     },
   });
 
+  console.log("RESPONSE: ", response);
 
   if (response.responsteText = 'OK') {
     if (!response.data.e) {

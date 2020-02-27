@@ -40,7 +40,7 @@ export default function InteractiveList(props) {
     const [dense, setDense] = React.useState(false);
     const [secondary, setSecondary] = React.useState(false);
   
-
+    console.log("die bets: ", bets);
     return (
         <div>
             { bets.length == 0 &&

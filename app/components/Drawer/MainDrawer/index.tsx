@@ -191,6 +191,7 @@ export default function PrimarySearchAppBar(props) {
             toggleNotificationList={toggleNotificationList}
             toggleFriends={toggleFriends}
             toggleGroups={toggleGroups}
+            handleNotificationClose={handleNotificationClose}
             redirect={redirect}
             />
 

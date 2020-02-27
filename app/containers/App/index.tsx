@@ -29,7 +29,7 @@ import loginReducer from './../LoginPage/reducer';
 import loginSaga from './../LoginPage/saga';
 
 import { requestAuth, requestLogin, requestRegister, requestGroups, requestCreateGroup, requestBets } from './actions';
-import { requestNotfications, requestFriends } from './actions';
+import { requestNotfications, requestFriends, requestCreateBet } from './actions';
 
 import HomePage from 'containers/HomePage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
@@ -64,6 +64,8 @@ export default function App() {
   const secureLogin = App ? App : { authenticated : null };
   const secureNotifications = App && App.user ? App.user.notifications : [];
   const secureFriends = App && App.user ? App.user.friends : [];
+  const secureBets = App && App.user ? App.user.bets : [];
+  const secureGroups = App && App.user ? App.user.groups : [];
 
   function notificationToggle(){
     dispatch(requestNotfications());
@@ -80,6 +82,10 @@ export default function App() {
   function createGroup(data){
     console.log("data create group: ", data);
     dispatch(requestCreateGroup(data))
+  }
+
+  function createBet(data){
+    dispatch(requestCreateBet(data));
   }
 
   function toggleBets(){
@@ -165,6 +171,11 @@ export default function App() {
               path="/bets/:id?" 
               component={Bets}
               toggleBets={toggleBets}
+              secureBets={secureBets}
+              secureGroups={secureGroups}
+              secureFriends={secureFriends}
+              createBet={createBet}
+              app={App}
               />
             <PrivateRoute auth={secureLogin.authenticated} component={NotFoundPage} />  
           </Switch>

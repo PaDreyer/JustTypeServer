@@ -35,6 +35,10 @@ export const requestGroups = () => action(ActionTypes.USER_GROUP_REQUEST);
 export const successGroups = (groups) => action(ActionTypes.USER_GROUP_SUCCESS, groups);
 export const failureGroups = (error) => action(ActionTypes.USER_GROUP_FAILURE, error);
 
+export const requestGroupBets = (data) => action(ActionTypes.USER_GROUP_BETS_REQUEST, data);
+export const successGroupBets = (data) => action(ActionTypes.USER_GROUP_BETS_SUCCESS, data);
+export const failureGroupBets = (error) => action(ActionTypes.USER_GROUP_BETS_FAILURE, error);
+
 export const requestCreateGroup = (data) => action(ActionTypes.USER_GROUP_CREATE_REQUEST, data);
 export const successCreateGroup = (data) => action(ActionTypes.USER_GROUP_CREATE_SUCCESS, data);
 export const failureCreateGroup = (error) => action(ActionTypes.USER_GROUP_CREATE_FAILURE, error);
@@ -43,6 +47,6 @@ export const requestBets = () => action(ActionTypes.USER_BETS_REQUEST);
 export const successBets = (data) => action(ActionTypes.USER_BETS_SUCCESS, data);
 export const failureBets = (error) => action(ActionTypes.USER_BETS_FAILURE, error);
 
-export const requestCreateBet = () => action(ActionTypes.USER_BETS_CREATE_REQUEST);
+export const requestCreateBet = (data) => action(ActionTypes.USER_BETS_CREATE_REQUEST, data);
 export const successCreateBet = (data) => action(ActionTypes.USER_BETS_CREATE_SUCCESS, data);
 export const failureCreateBet = (error) => action(ActionTypes.USER_BETS_CREATE_FAILURE, error);

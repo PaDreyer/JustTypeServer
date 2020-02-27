@@ -17,13 +17,23 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
+import GroupView from './../../components/Groups/GroupOverview/MainGroupOverview';
+import BetsView from './../../components/Bets/BetsView/MainBetsView';
+import { makeSelectApp } from 'containers/App/selectors';
+
 const stateSelector = createStructuredSelector({
   bets: makeSelectBets(),
+  app: makeSelectApp(),
 });
 
 interface Props {
   toggleBets: ()=>void;
   match: any;
+  secureGroups: any[];
+  secureBets: any[];
+  secureFriends: any[];
+  createBet: ()=>void;
+  app: any;
 }
 
 function Bets(props: Props) {
@@ -31,8 +41,8 @@ function Bets(props: Props) {
   useInjectReducer({ key: 'bets', reducer: reducer });
   useInjectSaga({ key: 'bets', saga: saga });
   
-  const { toggleBets, match } = props;
-  const { id } = match;
+  const { secureGroups, secureBets, secureFriends, createBet, app, toggleBets, match } = props;
+  const { id } = match.params;
 
   React.useEffect(()=>{
     toggleBets();
@@ -43,15 +53,22 @@ function Bets(props: Props) {
 
   const { bets } = useSelector(stateSelector);
   const dispatch = useDispatch();
+
   return (
     <div>
       <Helmet>
         <title>Bets</title>
         <meta name="description" content="Description of Bets" />
       </Helmet>
-      <FormattedMessage {...messages.header} />
+      { id != undefined &&
+        <GroupView id={id} groups={secureGroups} friends={secureFriends} createBet={createBet} app={app}/>
+      }
+      { id == undefined &&
+        <BetsView bets={secureBets}/>
+      }
     </div>
   );
 }
+//<FormattedMessage {...messages.header} />
 
 export default memo(Bets);

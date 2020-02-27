@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 export default function InteractiveList(props) {
-    const { notificationList, toggleNotificationList , toggleFriends, toggleGroups, redirect } = props;
+    const { notificationList, toggleNotificationList , toggleFriends, toggleGroups, redirect, handleNotificationClose } = props;
     // console.log("die props in comp: ", props);
     // console.log("die notificationlist im comp: ", notificationList)
 
@@ -100,17 +100,34 @@ export default function InteractiveList(props) {
         toggleFriends();
       }
     }
-
     function handleFriendsOpen(notification){
       redirect("/friends");
     }
 
     function handleGroupsOpen(notification){
+      handleNotificationClose();
+
+      //delete notification
+      console.log("notification!!: ", notification)
       redirect(`/bets/${notification.groupId}`)
     }
 
     async function handleDeleteNotification(notification) {
       console.log('NOTIFICATION: ', notification);
+      const { categorie, type , shortId } = notification;
+
+      const result = await axios.post('http://localhost:3001/user/notifications/read', { id: shortId } , {
+        withCredentials: true,
+        headers: {
+          'Accept' : 'application/json',
+          'Content-Type' : 'application/json',
+        },
+      });
+
+      // fehler abfangen !
+      if (!result.data.e) {
+        toggleNotificationList();
+      }
     }
 
     function getNotificationActions(notification) {
@@ -121,9 +138,9 @@ export default function InteractiveList(props) {
           if (notification.type === 'add') {
             const { friendName, friendId } = notification;
             result = (
-              <MenuItem className={classes.MenuItem} onClick={()=>{handleFriendsOpen(notification)}}>
+              <MenuItem className={classes.MenuItem}>
                 <Grid container justify="center">
-                  <Grid item xs={6}>
+                  <Grid item xs={6} onClick={()=>{handleFriendsOpen(notification)}}>
                     <Box display="flex" className={classes.notificationContentWrapper}>
 
                         <Typography paragraph className={classes.notificationTypoWrapper}>
